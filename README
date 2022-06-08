@@ -1,0 +1,203 @@
+ _____               _    _ _ _     ______        ______ ____  ____
+|_   _| __ __ _  ___| | _| (_) |__ |  _ \ \      / / ___|  _ \/ ___|
+  | || '__/ _` |/ __| |/ / | | '_ \| |_) \ \ /\ / / |  _| |_) \___ \
+  | || | | (_| | (__|   <| | | |_) |  _ < \ V  V /| |_| |  __/ ___) |
+  |_||_|  \__,_|\___|_|\_\_|_|_.__/|_| \_\ \_/\_/  \____|_|   |____/
+=====================================================================
+
+
+I. What is this library?
+II. API
+  A. Supporting Classes
+    1. PolylineOptions
+    2. RoadClassMapping
+    3. SurfaceMapping
+  B. Main Functions
+    1. section_data_polyline
+    2. section_data_simplified_polyline
+    3. section_data_simplified
+    4. section_column_simplified
+
+
+
+I. What is this library?
+------------------------
+
+TracklibRWGPS is a proprietary extension to the open source (but RWGPS-developed) tracklib library. It adds functionality to simplify tracks (using the RDP algorithm) and encode polylines. This code exists here, in this library, instead of inside tracklib proper because it's business logic - in particular, assumptions about the structure and meaning of data inside track files may not apply to all uses/users of tracklib.
+
+
+
+II. API
+-------
+
+A. Supporting Classes
+---------------------
+
+1. PolylineOptions
+------------------
+
+This class serves as an opaque structure holding the fields, precision, and default values to be used in encoding polylines.
+
+Constructors:
+* new(opts)
+  `opts` is an array of arrays, each of which represents one field, its encoding precision, and (optionally) its default value.
+  Valid fields are x, y, d, e, S, and R.
+  Fields S and R require a default value, since they may both be missing from any point within the track.
+  Giving a default value to any other field is an error.
+
+
+Methods:
+None
+
+
+
+Example: Encode y and x both at precision 5
+>> TracklibRWGPS::PolylineOptions::new([["y", 5], ["x", 5]])
+
+Example: Encode all available fields with different precision
+>> TracklibRWGPS::PolylineOptions::new([["y", 1], ["x", 2], ["d", 3], ["e", 4], ["S", 5, 99], ["R", 6, 0]])
+
+ERRONEOUS Example: Try to give a default to a field that isn't S or R
+>> TracklibRWGPS::PolylineOptions::new([["y", 5, 99], ["x", 5]])
+   ^
+   This raises an exception
+
+ERRONEOUS Example: Omit the default value from S or R
+>> TracklibRWGPS::PolylineOptions::new([["y", 5], ["x", 5], ["S", 5]])
+   ^
+   This raises an exception
+
+
+
+2. RoadClassMapping
+-------------------
+
+This class, like PolylineOptions, opaquely stores information - this time for use in simplification. It represents a mapping between Road Classes and Surface Types which applies only to a particular region of the earth.
+
+Constructors:
+* new(bbox)
+  `bbox` is an array of four floats representing the bounding box to which this mapping applies.
+
+
+Methods:
+* add_road_class(road_class_id, surface_id)
+  `road_class_id` and `surface_id` are both integers.
+
+
+
+Example: Create a mapping with a bounding box covering the whole world and a couple entries
+>> rcm = TracklibRWGPS::RoadClassMapping::new([-90, -180, 90, 180])
+>> rcm.add_road_class(0, 50)
+>> rcm.add_road_class(1, 82)
+
+
+
+3. SurfaceMapping
+-----------------
+
+Just like RoadClassMapping, this is an opaque store of information for use in simplification. It represents a mapping between Surface Types and RWGPS Surface Names.
+
+Constructors:
+* new(unknown_surface_id)
+  `unknown_surface_id` is a sentinel value used to trigger a lookup in the RoadClassMapping.
+
+
+Methods:
+* add_surface(surface_id, surface_name)
+  `surface_id` is an integer and `surface_name` is a string.
+
+* add_road_class_mapping(road_class_mapping)
+  `road_class_mapping` is an instance of RoadClassMapping.
+
+
+
+Example: Create a mapping, add a few entries, and attach a RoadClassMapping
+>> sm = TracklibRWGPS::SurfaceMapping::new(99)
+>> sm.add_surface(0, "Paved")
+>> sm.add_surface(1, "Paved")
+>> sm.add_surface(20, "Gravel")
+>> sm.add_road_class_mapping(rcm)
+
+
+
+B. Main Functions
+-----------------
+
+1. section_data_polyline
+------------------------
+
+Encode a polyline for this track section.
+
+* section_data_polyline(track_reader, section_index, polyline_opts, key_material)
+`track_reader` is an instance of Tracklib::TrackReader,
+`section_index` is an integer,
+`polyline_opts` is an instance of PolylineOptions,
+`key_material` is a String and ignored when reading a section with Standard encoding, and required when reading one with Encrypted encoding.
+
+
+
+Example: Encode a polyline for a section with Standard encoding
+>> TracklibRWGPS::section_data_polyline(reader, 0, opts)
+
+Example: Encode a polyline for a section with Encrypted encoding
+>> TracklibRWGPS::section_data_polyline(reader, 0, opts, key_material)
+
+
+
+2. section_data_simplified_polyline
+-----------------------------------
+
+Simplify and encode a polyline for this track section.
+
+* section_data_simplified_polyline(track_reader, section_index, surface_mapping, tolerance, polyline_opts, key_material)
+`track_reader` is an instance of Tracklib::TrackReader,
+`section_index` is an integer,
+`surface_mapping` is an instance of SurfaceMapping,
+`tolerance` is a float representing how dramatically simplified the result will be,
+`polyline_opts` is an instance of PolylineOptions,
+`key_material` is a String and ignored when reading a section with Standard encoding, and required when reading one with Encrypted encoding.
+
+
+
+Example: Simplify and encode a section
+>> TracklibRWGPS::section_data_polyline(reader, 0, mapping, 0.00001, opts)
+
+
+
+3. section_data_simplified
+--------------------------
+
+Simplify a track section and return an array of hashes.
+
+* section_data_simplified(track_reader, section_index, surface_mapping, tolerance, key_material)
+`track_reader` is an instance of Tracklib::TrackReader,
+`section_index` is an integer,
+`surface_mapping` is an instance of SurfaceMapping,
+`tolerance` is a float representing how dramatically simplified the result will be,
+`key_material` is a String and ignored when reading a section with Standard encoding, and required when reading one with Encrypted encoding.
+
+
+
+Example: Simplify a section
+>> TracklibRWGPS::section_data_simplified(reader, 0, mapping, 0.00001)
+
+
+
+4. section_column_simplified
+----------------------------
+
+Simplify a track section and return only one column.
+
+* section_column_simplified(track_reader, section_index, column_name, surface_mapping, tolerance, key_material)
+`track_reader` is an instance of Tracklib::TrackReader,
+`section_index` is an integer,
+`column_name` is a string,
+`surface_mapping` is an instance of SurfaceMapping,
+`tolerance` is a float representing how dramatically simplified the result will be,
+`key_material` is a String and ignored when reading a section with Standard encoding, and required when reading one with Encrypted encoding.
+
+
+
+Example: Simplify a section
+>> TracklibRWGPS::section_column_simplified(reader, 0, "x", mapping, 0.00001)
+

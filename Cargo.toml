@@ -1,0 +1,15 @@
+[package]
+name = "tracklib_rwgps"
+version = "0.1.0"
+authors = ["Dan Larkin <dan@danlarkin.org>"]
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+itertools = "0.10"
+lazy_static = "1.4"
+ruby_tracklib = {path="../tracklib/ruby_tracklib2"}
+rutie = "0.8"
+tracklib2 = {path="../tracklib/tracklib2"}
