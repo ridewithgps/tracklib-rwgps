@@ -10,6 +10,6 @@ crate-type = ["cdylib"]
 [dependencies]
 itertools = "0.10"
 lazy_static = "1.4"
-ruby_tracklib = {path="../tracklib/ruby_tracklib2"}
+ruby_tracklib2 = { git = "https://github.com/ridewithgps/tracklib.git", branch = "tracklib2_pr2" }
 rutie = "0.8"
-tracklib2 = {path="../tracklib/tracklib2"}
+tracklib2 = { git = "https://github.com/ridewithgps/tracklib.git", branch = "tracklib2_pr2" }

@@ -14,7 +14,7 @@ methods!(
     TracklibRWGPS,
     _rtself,
     fn simplify_section_data_simplified_polyline(
-        track_reader: ruby_tracklib::read::TrackReader,
+        track_reader: ruby_tracklib2::read::TrackReader,
         index: Integer,
         mapping: RubySurfaceMapping,
         tolerance: Float,
@@ -88,7 +88,7 @@ methods!(
         })
     },
     fn simplify_section_data_simplified(
-        track_reader: ruby_tracklib::read::TrackReader,
+        track_reader: ruby_tracklib2::read::TrackReader,
         index: Integer,
         mapping: RubySurfaceMapping,
         tolerance: Float,
@@ -164,7 +164,7 @@ methods!(
         })
     },
     fn simplify_section_column_simplified(
-        track_reader: ruby_tracklib::read::TrackReader,
+        track_reader: ruby_tracklib2::read::TrackReader,
         index: Integer,
         column_name: RString,
         mapping: RubySurfaceMapping,
@@ -274,7 +274,7 @@ fn reader_with_indexes_to_array_of_hashes(
                 if let Some(value) = maybe_value {
                     row_hash.store(
                         RString::from(String::from(field_def.name())),
-                        ruby_tracklib::read::fieldvalue_to_ruby(value),
+                        ruby_tracklib2::read::fieldvalue_to_ruby(value),
                     );
                 }
             }
@@ -302,7 +302,7 @@ fn reader_with_indexes_to_single_column_array(
                 .unwrap();
 
             let ruby_value = if let Some(value) = maybe_value {
-                ruby_tracklib::read::fieldvalue_to_ruby(value)
+                ruby_tracklib2::read::fieldvalue_to_ruby(value)
             } else {
                 NilClass::new().to_any_object()
             };
