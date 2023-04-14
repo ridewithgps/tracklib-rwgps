@@ -39,7 +39,7 @@ methods!(
             inner: crate::surface::rust::RoadClassMapping::new(bbox),
         };
 
-        Module::from_existing("TracklibRWGPS")
+        Module::from_existing("TracklibRwgps")
             .get_nested_class("RoadClassMapping")
             .wrap_data(inner, &*ROAD_CLASS_INNER_WRAPPER)
     },
@@ -60,7 +60,7 @@ methods!(
 
 impl VerifiedObject for RubyRoadClassMapping {
     fn is_correct_type<T: Object>(object: &T) -> bool {
-        object.class() == Module::from_existing("TracklibRWGPS").get_nested_class("RoadClassMapping")
+        object.class() == Module::from_existing("TracklibRwgps").get_nested_class("RoadClassMapping")
     }
 
     fn error_message() -> &'static str {
@@ -85,7 +85,7 @@ methods!(
             inner: crate::surface::rust::SurfaceMapping::new(id),
         };
 
-        Module::from_existing("TracklibRWGPS")
+        Module::from_existing("TracklibRwgps")
             .get_nested_class("SurfaceMapping")
             .wrap_data(inner, &*SURFACE_INNER_WRAPPER)
     },
@@ -120,7 +120,7 @@ impl RubySurfaceMapping {
 
 impl VerifiedObject for RubySurfaceMapping {
     fn is_correct_type<T: Object>(object: &T) -> bool {
-        object.class() == Module::from_existing("TracklibRWGPS").get_nested_class("SurfaceMapping")
+        object.class() == Module::from_existing("TracklibRwgps").get_nested_class("SurfaceMapping")
     }
 
     fn error_message() -> &'static str {

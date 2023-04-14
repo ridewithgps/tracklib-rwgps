@@ -8,10 +8,10 @@ use rutie::{methods, module, AnyObject, Array, Class, Float, Hash, Integer, NilC
 use std::collections::HashSet;
 use tracklib::read::section::SectionRead;
 
-module!(TracklibRWGPS);
+module!(TracklibRwgps);
 
 methods!(
-    TracklibRWGPS,
+    TracklibRwgps,
     _rtself,
     fn simplify_section_data_simplified_polyline(
         track_reader: ruby_tracklib::read::TrackReader,

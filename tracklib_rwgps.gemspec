@@ -2,7 +2,7 @@ require_relative 'lib/tracklib_rwgps/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "tracklib_rwgps"
-  spec.version       = TracklibRWGPS::VERSION
+  spec.version       = TracklibRwgps::VERSION
   spec.authors       = ["Dan Larkin"]
   spec.email         = ["dan@danlarkin.org"]
 
