@@ -153,7 +153,7 @@ methods!(
     TracklibRWGPS,
     _rtself,
     fn polyline_section_data_polyline(
-        track_reader: ruby_tracklib2::read::TrackReader,
+        track_reader: ruby_tracklib_next::read::TrackReader,
         index: Integer,
         polyline_opts: PolylineOptions,
         key_material: RString) -> RString {
