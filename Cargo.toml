@@ -1,6 +1,6 @@
 [package]
 name = "tracklib_rwgps"
-version = "0.1.0"
+version = "2.0.0"
 authors = ["Dan Larkin <dan@danlarkin.org>"]
 edition = "2021"
 
@@ -10,6 +10,6 @@ crate-type = ["cdylib"]
 [dependencies]
 itertools = "0.10"
 lazy_static = "1.4"
-ruby_tracklib_next = { git = "https://github.com/ridewithgps/tracklib.git", branch = "tracklib2_pr2" }
+ruby_tracklib = { git = "https://github.com/ridewithgps/tracklib.git", branch = "tracklib2_pr3" }
 rutie = "0.8"
-tracklib2 = { git = "https://github.com/ridewithgps/tracklib.git", branch = "tracklib2_pr2" }
+tracklib = { git = "https://github.com/ridewithgps/tracklib.git", branch = "tracklib2_pr3" }

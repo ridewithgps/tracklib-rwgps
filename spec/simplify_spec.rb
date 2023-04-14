@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe TracklibRWGPS do
+describe tracklibRwgps do
   context "simplify and encode" do
     it "can work in the simple case" do
       data = [{"x" => 40, "y" => 12, "e" => 2},
@@ -10,13 +10,13 @@ describe TracklibRWGPS do
       buf = Tracklib::write_track([], [section])
       reader = Tracklib::TrackReader::new(buf)
 
-      surface_mapping = TracklibRWGPS::SurfaceMapping::new(99)
+      surface_mapping = tracklibRwgps::SurfaceMapping::new(99)
 
-      polyline = TracklibRWGPS::section_data_simplified_polyline(reader,
+      polyline = tracklibRwgps::section_data_simplified_polyline(reader,
                                                                  0,
                                                                  surface_mapping,
                                                                  0.0,
-                                                                 TracklibRWGPS::PolylineOptions::new([["y", 5], ["x", 5]]))
+                                                                 tracklibRwgps::PolylineOptions::new([["y", 5], ["x", 5]]))
       expect(decode_polyline(polyline, [5, 5]))
         .to eq([12.0, 40.0, 800.0, 41.0])
     end
@@ -30,13 +30,13 @@ describe TracklibRWGPS do
       buf = Tracklib::write_track([], [section])
       reader = Tracklib::TrackReader::new(buf)
 
-      surface_mapping = TracklibRWGPS::SurfaceMapping::new(99)
+      surface_mapping = tracklibRwgps::SurfaceMapping::new(99)
 
-      polyline = TracklibRWGPS::section_data_simplified_polyline(reader,
+      polyline = tracklibRwgps::section_data_simplified_polyline(reader,
                                                                  0,
                                                                  surface_mapping,
                                                                  0.0,
-                                                                 TracklibRWGPS::PolylineOptions::new([["y", 5], ["x", 5]]),
+                                                                 tracklibRwgps::PolylineOptions::new([["y", 5], ["x", 5]]),
                                                                  key)
 
       expect(decode_polyline(polyline, [5, 5]))
@@ -53,9 +53,9 @@ describe TracklibRWGPS do
       buf = Tracklib::write_track([], [section])
       reader = Tracklib::TrackReader::new(buf)
 
-      surface_mapping = TracklibRWGPS::SurfaceMapping::new(99)
+      surface_mapping = tracklibRwgps::SurfaceMapping::new(99)
 
-      new_data = TracklibRWGPS::section_data_simplified(reader,
+      new_data = tracklibRwgps::section_data_simplified(reader,
                                                         0,
                                                         surface_mapping,
                                                         0.0)
@@ -71,9 +71,9 @@ describe TracklibRWGPS do
       buf = Tracklib::write_track([], [section])
       reader = Tracklib::TrackReader::new(buf)
 
-      surface_mapping = TracklibRWGPS::SurfaceMapping::new(99)
+      surface_mapping = tracklibRwgps::SurfaceMapping::new(99)
 
-      new_data = TracklibRWGPS::section_data_simplified(reader,
+      new_data = tracklibRwgps::section_data_simplified(reader,
                                                         0,
                                                         surface_mapping,
                                                         0.0,
@@ -91,23 +91,23 @@ describe TracklibRWGPS do
       buf = Tracklib::write_track([], [section])
       reader = Tracklib::TrackReader::new(buf)
 
-      surface_mapping = TracklibRWGPS::SurfaceMapping::new(99)
+      surface_mapping = tracklibRwgps::SurfaceMapping::new(99)
 
-      expect(TracklibRWGPS::section_column_simplified(reader,
+      expect(tracklibRwgps::section_column_simplified(reader,
                                                       0,
                                                       "x",
                                                       surface_mapping,
                                                       0.0))
         .to eq([40, 41])
 
-      expect(TracklibRWGPS::section_column_simplified(reader,
+      expect(tracklibRwgps::section_column_simplified(reader,
                                                       0,
                                                       "z",
                                                       surface_mapping,
                                                       0.0))
         .to eq(["Foo", nil])
 
-      expect(TracklibRWGPS::section_column_simplified(reader,
+      expect(tracklibRwgps::section_column_simplified(reader,
                                                       0,
                                                       "F",
                                                       surface_mapping,
@@ -124,9 +124,9 @@ describe TracklibRWGPS do
       buf = Tracklib::write_track([], [section])
       reader = Tracklib::TrackReader::new(buf)
 
-      surface_mapping = TracklibRWGPS::SurfaceMapping::new(99)
+      surface_mapping = tracklibRwgps::SurfaceMapping::new(99)
 
-      expect(TracklibRWGPS::section_column_simplified(reader,
+      expect(tracklibRwgps::section_column_simplified(reader,
                                                       0,
                                                       "x",
                                                       surface_mapping,
@@ -134,7 +134,7 @@ describe TracklibRWGPS do
                                                       key))
         .to eq([40, 41])
 
-      expect(TracklibRWGPS::section_column_simplified(reader,
+      expect(tracklibRwgps::section_column_simplified(reader,
                                                       0,
                                                       "z",
                                                       surface_mapping,
@@ -142,7 +142,7 @@ describe TracklibRWGPS do
                                                       key))
         .to eq(["Foo", nil])
 
-      expect(TracklibRWGPS::section_column_simplified(reader,
+      expect(tracklibRwgps::section_column_simplified(reader,
                                                       0,
                                                       "F",
                                                       surface_mapping,

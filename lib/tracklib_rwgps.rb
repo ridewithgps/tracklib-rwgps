@@ -1,8 +1,8 @@
 require "tracklib_rwgps/version"
 require "rutie"
 
-module TracklibNext
-  Rutie.new(:tracklib_rwgps).init 'Init_Tracklib_Next', __dir__
+module Tracklib
+  Rutie.new(:tracklib_rwgps).init 'Init_Tracklib', __dir__
 end
 
 module TracklibRwgps

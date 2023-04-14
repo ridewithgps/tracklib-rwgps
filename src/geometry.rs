@@ -157,8 +157,8 @@ fn new_point<'a, T>(index: usize, prev: Option<&Point>, iter: T) -> Option<Point
 where
     T: IntoIterator<
         Item = (
-            &'a tracklib2::schema::FieldDefinition,
-            Option<tracklib2::types::FieldValue>,
+            &'a tracklib::schema::FieldDefinition,
+            Option<tracklib::types::FieldValue>,
         ),
     >,
 {
@@ -169,9 +169,9 @@ where
 
     if let Some((x, y, e, d)) = match (fields.get("x"), fields.get("y"), fields.get("e")) {
         (
-            Some(Some(tracklib2::types::FieldValue::F64(x))),
-            Some(Some(tracklib2::types::FieldValue::F64(y))),
-            Some(Some(tracklib2::types::FieldValue::F64(e))),
+            Some(Some(tracklib::types::FieldValue::F64(x))),
+            Some(Some(tracklib::types::FieldValue::F64(y))),
+            Some(Some(tracklib::types::FieldValue::F64(e))),
         ) => {
             let d = if let Some(p) = prev {
                 p.d() + haversine_distance(p, *x, *y)
@@ -187,7 +187,7 @@ where
         let mut r = None;
 
         match fields.get("S") {
-            Some(Some(tracklib2::types::FieldValue::I64(v))) => s = Some(*v),
+            Some(Some(tracklib::types::FieldValue::I64(v))) => s = Some(*v),
             None | Some(None) => {}
             _ => {
                 return None;
@@ -195,7 +195,7 @@ where
         }
 
         match fields.get("R") {
-            Some(Some(tracklib2::types::FieldValue::I64(v))) => r = Some(*v),
+            Some(Some(tracklib::types::FieldValue::I64(v))) => r = Some(*v),
             None | Some(None) => {}
             _ => {
                 return None;
@@ -208,7 +208,7 @@ where
     }
 }
 
-pub(crate) fn reader_to_points(mut reader: tracklib2::read::section::reader::SectionReader) -> Vec<Point> {
+pub(crate) fn reader_to_points(mut reader: tracklib::read::section::reader::SectionReader) -> Vec<Point> {
     let mut index = 0;
     let mut points = Vec::with_capacity(reader.rows_remaining());
     while let Some(columniter) = reader.open_column_iter() {

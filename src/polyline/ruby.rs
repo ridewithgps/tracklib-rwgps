@@ -125,7 +125,7 @@ methods!(
             })
             .collect::<Vec<_>>();
 
-        Module::from_existing("TracklibRWGPS")
+        Module::from_existing("TracklibRwgps")
             .get_nested_class("PolylineOptions")
             .wrap_data(WrappablePolylineOptions { opts }, &*POLYLINE_OPTIONS_WRAPPER_INSTANCE)
     },
@@ -139,7 +139,7 @@ impl PolylineOptions {
 
 impl VerifiedObject for PolylineOptions {
     fn is_correct_type<T: Object>(object: &T) -> bool {
-        object.class() == Module::from_existing("TracklibRWGPS").get_nested_class("PolylineOptions")
+        object.class() == Module::from_existing("TracklibRwgps").get_nested_class("PolylineOptions")
     }
 
     fn error_message() -> &'static str {
@@ -147,13 +147,13 @@ impl VerifiedObject for PolylineOptions {
     }
 }
 
-module!(TracklibRWGPS);
+module!(TracklibRwgps);
 
 methods!(
-    TracklibRWGPS,
+    TracklibRwgps,
     _rtself,
     fn polyline_section_data_polyline(
-        track_reader: ruby_tracklib_next::read::TrackReader,
+        track_reader: ruby_tracklib::read::TrackReader,
         index: Integer,
         polyline_opts: PolylineOptions,
         key_material: RString) -> RString {
@@ -171,16 +171,16 @@ methods!(
             track_reader
                 .section(rust_index)
                 .map(|section| {
-                    let schema = tracklib2::schema::Schema::with_fields(vec![
-                        tracklib2::schema::FieldDefinition::new("x", tracklib2::schema::DataType::F64 { scale: 7 }),
-                        tracklib2::schema::FieldDefinition::new("y", tracklib2::schema::DataType::F64 { scale: 7 }),
-                        tracklib2::schema::FieldDefinition::new("e", tracklib2::schema::DataType::F64 { scale: 7 }),
-                        tracklib2::schema::FieldDefinition::new("S", tracklib2::schema::DataType::I64),
-                        tracklib2::schema::FieldDefinition::new("R", tracklib2::schema::DataType::I64),
+                    let schema = tracklib::schema::Schema::with_fields(vec![
+                        tracklib::schema::FieldDefinition::new("x", tracklib::schema::DataType::F64 { scale: 7 }),
+                        tracklib::schema::FieldDefinition::new("y", tracklib::schema::DataType::F64 { scale: 7 }),
+                        tracklib::schema::FieldDefinition::new("e", tracklib::schema::DataType::F64 { scale: 7 }),
+                        tracklib::schema::FieldDefinition::new("S", tracklib::schema::DataType::I64),
+                        tracklib::schema::FieldDefinition::new("R", tracklib::schema::DataType::I64),
                     ]);
 
                     match section {
-                        tracklib2::read::section::Section::Standard(section) => {
+                        tracklib::read::section::Section::Standard(section) => {
                             let section_reader = section
                                 .reader_for_schema(&schema)
                                 .map_err(|e| VM::raise(Class::from_existing("Exception"), &format!("{}", e)))
@@ -189,7 +189,7 @@ methods!(
 
                             RString::from(polyline_encode(&points, rust_polyline_opts))
                         }
-                        tracklib2::read::section::Section::Encrypted(mut section) => {
+                        tracklib::read::section::Section::Encrypted(mut section) => {
                             let ruby_key_material = key_material.map_err(VM::raise_ex).unwrap();
                             let rust_key_material = ruby_key_material.to_bytes_unchecked();
 
