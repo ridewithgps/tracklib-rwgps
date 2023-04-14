@@ -21,9 +21,10 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = Gem::Requirement.new(">= 2.3.0")
   spec.require_paths = ["lib"]
+  spec.extensions = ["Rakefile"]
 
   spec.add_development_dependency "rspec"
-#  spec.add_development_dependency "tracklib"
+  # spec.add_development_dependency "tracklib"
 
   spec.add_dependency 'rutie', '~> 0.0.4'
 end
