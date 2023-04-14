@@ -7,8 +7,8 @@ use rutie::{Module, Object};
 
 #[allow(non_snake_case)]
 #[no_mangle]
-pub extern "C" fn Init_Tracklib_RWGPS() {
-    Module::from_existing("TracklibRWGPS").define(|module| {
+pub extern "C" fn Init_Tracklib_Rwgps() {
+    Module::from_existing("TracklibRwgps").define(|module| {
         module.define_nested_class("PolylineOptions", None).define(|class| {
             class.def_self("new", polyline::ruby::polyline_options_new);
         });

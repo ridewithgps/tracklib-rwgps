@@ -1,4 +1,4 @@
-require_relative 'lib/tracklib-rwgps/version'
+require_relative 'lib/tracklib_rwgps/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "tracklib_rwgps"
