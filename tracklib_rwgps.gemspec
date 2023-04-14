@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.description   = "RWGPS tracklib_rwgps ruby gem"
   spec.homepage      = "https://ridewithgps.com"
   spec.licenses      = ["Apache-2.0", "MIT"]
-  spec.files         = ["tracklib-rwgps.gemspec",
+  spec.files         = ["tracklib_rwgps.gemspec",
                         "Rakefile",
                         "Gemfile",
                         "lib/tracklib_rwgps.rb",
