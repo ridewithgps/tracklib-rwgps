@@ -6,5 +6,5 @@ module TracklibNext
 end
 
 module TracklibRwgps
-  Rutie.new(:tracklib_rwgps).init 'Init_Tracklib_RWGPS', __dir__
+  Rutie.new(:tracklib_rwgps).init 'Init_Tracklib_Rwgps', __dir__
 end
