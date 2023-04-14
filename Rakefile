@@ -14,5 +14,5 @@ RSpec::Core::RakeTask.new(spec: [:bundle_install, :build_lib]) do |t|
   t.pattern = "spec/**/*_spec.rb"
 end
 
-task :default => :spec
+task :default => :build_lib
 task :test => :spec
