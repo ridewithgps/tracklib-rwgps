@@ -40,9 +40,9 @@ methods!(
                 .section(rust_index)
                 .map(|section| {
                     let schema = tracklib::schema::Schema::with_fields(vec![
-                        tracklib::schema::FieldDefinition::new("x", tracklib::schema::DataType::F64 { scale: 7 }),
-                        tracklib::schema::FieldDefinition::new("y", tracklib::schema::DataType::F64 { scale: 7 }),
-                        tracklib::schema::FieldDefinition::new("e", tracklib::schema::DataType::F64 { scale: 7 }),
+                        tracklib::schema::FieldDefinition::new("x", tracklib::schema::DataType::F64 { scale: 6 }),
+                        tracklib::schema::FieldDefinition::new("y", tracklib::schema::DataType::F64 { scale: 6 }),
+                        tracklib::schema::FieldDefinition::new("e", tracklib::schema::DataType::F64 { scale: 1 }),
                         tracklib::schema::FieldDefinition::new("S", tracklib::schema::DataType::I64),
                         tracklib::schema::FieldDefinition::new("R", tracklib::schema::DataType::I64),
                     ]);
@@ -110,9 +110,9 @@ methods!(
                 .section(rust_index)
                 .map(|section| {
                     let schema = tracklib::schema::Schema::with_fields(vec![
-                        tracklib::schema::FieldDefinition::new("x", tracklib::schema::DataType::F64 { scale: 7 }),
-                        tracklib::schema::FieldDefinition::new("y", tracklib::schema::DataType::F64 { scale: 7 }),
-                        tracklib::schema::FieldDefinition::new("e", tracklib::schema::DataType::F64 { scale: 7 }),
+                        tracklib::schema::FieldDefinition::new("x", tracklib::schema::DataType::F64 { scale: 6 }),
+                        tracklib::schema::FieldDefinition::new("y", tracklib::schema::DataType::F64 { scale: 6 }),
+                        tracklib::schema::FieldDefinition::new("e", tracklib::schema::DataType::F64 { scale: 1 }),
                         tracklib::schema::FieldDefinition::new("S", tracklib::schema::DataType::I64),
                         tracklib::schema::FieldDefinition::new("R", tracklib::schema::DataType::I64),
                     ]);
@@ -199,9 +199,9 @@ methods!(
                         let schema_for_serialization = tracklib::schema::Schema::with_fields(vec![field_def.clone()]);
 
                         let schema_for_simplification = tracklib::schema::Schema::with_fields(vec![
-                            tracklib::schema::FieldDefinition::new("x", tracklib::schema::DataType::F64 { scale: 7 }),
-                            tracklib::schema::FieldDefinition::new("y", tracklib::schema::DataType::F64 { scale: 7 }),
-                            tracklib::schema::FieldDefinition::new("e", tracklib::schema::DataType::F64 { scale: 7 }),
+                            tracklib::schema::FieldDefinition::new("x", tracklib::schema::DataType::F64 { scale: 6 }),
+                            tracklib::schema::FieldDefinition::new("y", tracklib::schema::DataType::F64 { scale: 6 }),
+                            tracklib::schema::FieldDefinition::new("e", tracklib::schema::DataType::F64 { scale: 1 }),
                             tracklib::schema::FieldDefinition::new("S", tracklib::schema::DataType::I64),
                             tracklib::schema::FieldDefinition::new("R", tracklib::schema::DataType::I64),
                         ]);
