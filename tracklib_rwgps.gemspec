@@ -23,8 +23,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
   spec.extensions = ["Rakefile"]
 
-  spec.add_development_dependency "rspec"
-  # spec.add_development_dependency "tracklib"
-
-  spec.add_dependency 'rutie', '~> 0.0.4'
+  spec.add_runtime_dependency "rake", "~> 12.3"
+  spec.add_runtime_dependency "rspec"
+  spec.add_runtime_dependency "rutie", "~> 0.0.4"
 end
