@@ -221,8 +221,8 @@ pub(crate) fn reader_to_points(mut reader: tracklib::read::section::reader::Sect
             }),
         ) {
             points.push(point);
+            index += 1;
         }
-        index += 1;
     }
 
     points

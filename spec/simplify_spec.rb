@@ -150,5 +150,24 @@ describe TracklibRwgps do
                                                       key))
         .to eq(nil)
     end
+
+    it "can work when points are missing important fields" do
+      data = [{"x" => 40, "y" => 12},
+              {"x" => 41, "y" => 800, "e" => 2}]
+      schema = Tracklib::Schema.new([["x", :f64, 6], ["y", :f64, 6], ["e", :f64, 1]])
+      section = Tracklib::Section::standard(schema, data)
+      buf = Tracklib::write_track([], [section])
+      reader = Tracklib::TrackReader::new(buf)
+
+      surface_mapping = TracklibRwgps::SurfaceMapping::new(99)
+
+      polyline = TracklibRwgps::section_data_simplified_polyline(reader,
+                                                                 0,
+                                                                 surface_mapping,
+                                                                 0.0,
+                                                                 TracklibRwgps::PolylineOptions::new([["y", 5], ["x", 5]]))
+      expect(decode_polyline(polyline, [5, 5]))
+        .to eq([800.0, 41.0])
+    end
   end
 end
