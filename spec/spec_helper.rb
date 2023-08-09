@@ -1,7 +1,7 @@
 require 'bundler/setup'
 Bundler::setup()
 
-require "tracklib-rwgps"
+require "tracklib_rwgps"
 require "tracklib"
 
 RSpec::configure do |config|
