@@ -23,7 +23,7 @@ II. API
 I. What is this library?
 ------------------------
 
-TracklibRWGPS is a proprietary extension to the open source (but RWGPS-developed) tracklib library. It adds functionality to simplify tracks (using the RDP algorithm) and encode polylines. This code exists here, in this library, instead of inside tracklib proper because it's business logic - in particular, assumptions about the structure and meaning of data inside track files may not apply to all uses/users of tracklib.
+TracklibRWGPS is an extension to the main tracklib library. It adds functionality to simplify tracks (using the RDP algorithm) and encode polylines. This code exists here, in this library, instead of inside tracklib proper because it's business logic - in particular, assumptions about the structure and meaning of data inside track files may not apply to all uses/users of tracklib.
 
 
 
