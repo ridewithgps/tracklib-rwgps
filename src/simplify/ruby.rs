@@ -19,7 +19,8 @@ methods!(
         mapping: RubySurfaceMapping,
         tolerance: Float,
         polyline_opts: PolylineOptions,
-        key_material: RString) -> RString {
+        key_material: RString,
+    ) -> RString {
         let ruby_track_reader = track_reader.map_err(VM::raise_ex).unwrap();
 
         let rust_tolerance = tolerance.map_err(VM::raise_ex).unwrap().to_f64();
@@ -92,7 +93,8 @@ methods!(
         index: Integer,
         mapping: RubySurfaceMapping,
         tolerance: Float,
-        key_material: RString) -> Array {
+        key_material: RString,
+    ) -> Array {
         let ruby_track_reader = track_reader.map_err(VM::raise_ex).unwrap();
 
         let rust_tolerance = tolerance.map_err(VM::raise_ex).unwrap().to_f64();
@@ -169,7 +171,8 @@ methods!(
         column_name: RString,
         mapping: RubySurfaceMapping,
         tolerance: Float,
-        key_material: RString) -> AnyObject {
+        key_material: RString,
+    ) -> AnyObject {
         let ruby_track_reader = track_reader.map_err(VM::raise_ex).unwrap();
 
         let rust_tolerance = tolerance.map_err(VM::raise_ex).unwrap().to_f64();
