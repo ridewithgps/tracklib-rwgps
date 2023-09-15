@@ -56,7 +56,7 @@ describe TracklibRwgps do
       data = [{"x" => 40, "y" => 12, "e" => 1, "S" => 10},
               {"x" => 100, "y" => 0.5, "e" => 1},
               {"x" => 41, "y" => 800, "e" => 1, "S" => 20}]
-      schema = Tracklib::Schema.new([["x", :f64, 6], ["y", :f64, 6], ["e", :f64, 1], ["S", :i64]])
+      schema = Tracklib::Schema.new([["x", :f64, 6], ["y", :f64, 6], ["e", :f64, 1], ["S", :u64]])
       section = Tracklib::Section::standard(schema, data)
       buf = Tracklib::write_track([], [section])
       reader = Tracklib::TrackReader::new(buf)

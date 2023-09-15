@@ -69,15 +69,15 @@ pub(crate) fn polyline_encode(points: &[Point], fields: &[PolylineOption]) -> St
                 PointField::S {
                     default: default_surface_id,
                 } => output.push_str(&encode(
-                    f64::from(i32::try_from(point.s().unwrap_or(default_surface_id)).unwrap_or(0)),
-                    f64::from(i32::try_from(prev.s().unwrap_or(default_surface_id)).unwrap_or(0)),
+                    f64::from(u32::try_from(point.s().unwrap_or(default_surface_id)).unwrap_or(0)),
+                    f64::from(u32::try_from(prev.s().unwrap_or(default_surface_id)).unwrap_or(0)),
                     field.factor(),
                 )),
                 PointField::R {
                     default: default_road_class_id,
                 } => output.push_str(&encode(
-                    f64::from(i32::try_from(point.r().unwrap_or(default_road_class_id)).unwrap_or(0)),
-                    f64::from(i32::try_from(prev.r().unwrap_or(default_road_class_id)).unwrap_or(0)),
+                    f64::from(u32::try_from(point.r().unwrap_or(default_road_class_id)).unwrap_or(0)),
+                    f64::from(u32::try_from(prev.r().unwrap_or(default_road_class_id)).unwrap_or(0)),
                     field.factor(),
                 )),
             }

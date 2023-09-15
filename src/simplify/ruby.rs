@@ -43,8 +43,8 @@ methods!(
                         tracklib::schema::FieldDefinition::new("x", tracklib::schema::DataType::F64 { scale: 6 }),
                         tracklib::schema::FieldDefinition::new("y", tracklib::schema::DataType::F64 { scale: 6 }),
                         tracklib::schema::FieldDefinition::new("e", tracklib::schema::DataType::F64 { scale: 1 }),
-                        tracklib::schema::FieldDefinition::new("S", tracklib::schema::DataType::I64),
-                        tracklib::schema::FieldDefinition::new("R", tracklib::schema::DataType::I64),
+                        tracklib::schema::FieldDefinition::new("S", tracklib::schema::DataType::U64),
+                        tracklib::schema::FieldDefinition::new("R", tracklib::schema::DataType::U64),
                     ]);
 
                     match section {
@@ -113,8 +113,8 @@ methods!(
                         tracklib::schema::FieldDefinition::new("x", tracklib::schema::DataType::F64 { scale: 6 }),
                         tracklib::schema::FieldDefinition::new("y", tracklib::schema::DataType::F64 { scale: 6 }),
                         tracklib::schema::FieldDefinition::new("e", tracklib::schema::DataType::F64 { scale: 1 }),
-                        tracklib::schema::FieldDefinition::new("S", tracklib::schema::DataType::I64),
-                        tracklib::schema::FieldDefinition::new("R", tracklib::schema::DataType::I64),
+                        tracklib::schema::FieldDefinition::new("S", tracklib::schema::DataType::U64),
+                        tracklib::schema::FieldDefinition::new("R", tracklib::schema::DataType::U64),
                     ]);
 
                     match section {
@@ -202,8 +202,8 @@ methods!(
                             tracklib::schema::FieldDefinition::new("x", tracklib::schema::DataType::F64 { scale: 6 }),
                             tracklib::schema::FieldDefinition::new("y", tracklib::schema::DataType::F64 { scale: 6 }),
                             tracklib::schema::FieldDefinition::new("e", tracklib::schema::DataType::F64 { scale: 1 }),
-                            tracklib::schema::FieldDefinition::new("S", tracklib::schema::DataType::I64),
-                            tracklib::schema::FieldDefinition::new("R", tracklib::schema::DataType::I64),
+                            tracklib::schema::FieldDefinition::new("S", tracklib::schema::DataType::U64),
+                            tracklib::schema::FieldDefinition::new("R", tracklib::schema::DataType::U64),
                         ]);
 
                         match section {

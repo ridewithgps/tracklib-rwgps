@@ -95,7 +95,7 @@ methods!(
                             .try_convert_to::<Integer>()
                             .map_err(VM::raise_ex)
                             .unwrap()
-                            .to_i64();
+                            .to_u64();
                         PointField::S { default }
                     }
                     "R" => {
@@ -109,7 +109,7 @@ methods!(
                             .try_convert_to::<Integer>()
                             .map_err(VM::raise_ex)
                             .unwrap()
-                            .to_i64();
+                            .to_u64();
                         PointField::R { default }
                     }
                     field_name => {
@@ -175,8 +175,8 @@ methods!(
                         tracklib::schema::FieldDefinition::new("x", tracklib::schema::DataType::F64 { scale: 6 }),
                         tracklib::schema::FieldDefinition::new("y", tracklib::schema::DataType::F64 { scale: 6 }),
                         tracklib::schema::FieldDefinition::new("e", tracklib::schema::DataType::F64 { scale: 1 }),
-                        tracklib::schema::FieldDefinition::new("S", tracklib::schema::DataType::I64),
-                        tracklib::schema::FieldDefinition::new("R", tracklib::schema::DataType::I64),
+                        tracklib::schema::FieldDefinition::new("S", tracklib::schema::DataType::U64),
+                        tracklib::schema::FieldDefinition::new("R", tracklib::schema::DataType::U64),
                     ]);
 
                     match section {

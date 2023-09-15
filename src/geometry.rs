@@ -187,7 +187,7 @@ where
         let mut r = None;
 
         match fields.get("S") {
-            Some(Some(tracklib::types::FieldValue::I64(v))) => s = Some(*v),
+            Some(Some(tracklib::types::FieldValue::U64(v))) => s = Some(*v),
             None | Some(None) => {}
             _ => {
                 return None;
@@ -195,7 +195,7 @@ where
         }
 
         match fields.get("R") {
-            Some(Some(tracklib::types::FieldValue::I64(v))) => r = Some(*v),
+            Some(Some(tracklib::types::FieldValue::U64(v))) => r = Some(*v),
             None | Some(None) => {}
             _ => {
                 return None;
