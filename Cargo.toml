@@ -1,6 +1,6 @@
 [package]
 name = "tracklib_rwgps"
-version = "2.0.0"
+version = "2.0.2"
 authors = ["Dan Larkin <dan@danlarkin.org>"]
 edition = "2021"
 

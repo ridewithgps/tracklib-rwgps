@@ -10,7 +10,7 @@ GIT
 PATH
   remote: .
   specs:
-    tracklib_rwgps (2.0.1)
+    tracklib_rwgps (2.0.2)
       rake (~> 12.3)
       rspec
       rutie (~> 0.0.4)
