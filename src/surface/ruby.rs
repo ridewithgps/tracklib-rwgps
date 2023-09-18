@@ -44,8 +44,8 @@ methods!(
             .wrap_data(inner, &*ROAD_CLASS_INNER_WRAPPER)
     },
     fn road_class_mapping_add_road_class(road_class_id: Integer, surface_id: Integer) -> NilClass {
-        let rc_id = road_class_id.map_err(|e| VM::raise_ex(e)).unwrap().to_i64();
-        let s_id = surface_id.map_err(|e| VM::raise_ex(e)).unwrap().to_i64();
+        let rc_id = road_class_id.map_err(|e| VM::raise_ex(e)).unwrap().to_u64();
+        let s_id = surface_id.map_err(|e| VM::raise_ex(e)).unwrap().to_u64();
         let mapping = &mut itself.get_data_mut(&*ROAD_CLASS_INNER_WRAPPER).inner;
         mapping.add_road_class(rc_id, s_id);
 
@@ -80,7 +80,7 @@ methods!(
     RubySurfaceMapping,
     itself,
     fn surface_mapping_new(unknown_surface_id: Integer) -> AnyObject {
-        let id = unknown_surface_id.map_err(|e| VM::raise_ex(e)).unwrap().to_i64();
+        let id = unknown_surface_id.map_err(|e| VM::raise_ex(e)).unwrap().to_u64();
         let inner = SurfaceInner {
             inner: crate::surface::rust::SurfaceMapping::new(id),
         };
@@ -90,7 +90,7 @@ methods!(
             .wrap_data(inner, &*SURFACE_INNER_WRAPPER)
     },
     fn surface_mapping_add_surface(surface_id: Integer, group: RString) -> NilClass {
-        let id = surface_id.map_err(|e| VM::raise_ex(e)).unwrap().to_i64();
+        let id = surface_id.map_err(|e| VM::raise_ex(e)).unwrap().to_u64();
         let group_name = group.map_err(|e| VM::raise_ex(e)).unwrap().to_string();
         let mapping = &mut itself.get_data_mut(&*SURFACE_INNER_WRAPPER).inner;
         mapping.add_surface(id, group_name);

@@ -2,8 +2,8 @@ use crate::geometry::Point;
 use std::collections::HashMap;
 use std::fmt;
 
-pub type SurfaceTypeId = i64;
-pub type RoadClassId = i64;
+pub type SurfaceTypeId = u64;
+pub type RoadClassId = u64;
 
 #[derive(Clone)]
 pub struct RoadClassMapping {

@@ -3,9 +3,10 @@ require "spec_helper"
 describe TracklibRwgps do
   context "simplify and encode" do
     it "can work in the simple case" do
-      data = [{"x" => 40, "y" => 12, "e" => 2},
-              {"x" => 41, "y" => 800, "e" => 2}]
-      schema = Tracklib::Schema.new([["x", :f64, 6], ["y", :f64, 6], ["e", :f64, 1]])
+      data = [{"x" => 40, "y" => 12, "e" => 2, "S" => 0, "R" => 0},
+              {"x" => 41, "y" => 800, "e" => 2},
+              {"x" => 42, "y" => 20000, "e" => 2, "S" => 10, "R" => 11}]
+      schema = Tracklib::Schema.new([["x", :f64, 6], ["y", :f64, 6], ["e", :f64, 1], ["S", :u64], ["R", :u64]])
       section = Tracklib::Section::standard(schema, data)
       buf = Tracklib::write_track([], [section])
       reader = Tracklib::TrackReader::new(buf)
@@ -16,9 +17,14 @@ describe TracklibRwgps do
                                                                  0,
                                                                  surface_mapping,
                                                                  0.0,
-                                                                 TracklibRwgps::PolylineOptions::new([["y", 5], ["x", 5]]))
-      expect(decode_polyline(polyline, [5, 5]))
-        .to eq([12.0, 40.0, 800.0, 41.0])
+                                                                 TracklibRwgps::PolylineOptions::new([["y", 5],
+                                                                                                      ["x", 5],
+                                                                                                      ["S", 5, 99],
+                                                                                                      ["R", 5, 99]]))
+      expect(decode_polyline(polyline, [5, 5, 5, 5]))
+        .to eq([12, 40, 0, 0,
+                800, 41, 99, 99,
+                20000, 42, 10, 11])
     end
 
     it "can simplify and encode encrypted sections" do

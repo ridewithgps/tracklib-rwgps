@@ -19,7 +19,8 @@ methods!(
         mapping: RubySurfaceMapping,
         tolerance: Float,
         polyline_opts: PolylineOptions,
-        key_material: RString) -> RString {
+        key_material: RString,
+    ) -> RString {
         let ruby_track_reader = track_reader.map_err(VM::raise_ex).unwrap();
 
         let rust_tolerance = tolerance.map_err(VM::raise_ex).unwrap().to_f64();
@@ -43,8 +44,8 @@ methods!(
                         tracklib::schema::FieldDefinition::new("x", tracklib::schema::DataType::F64 { scale: 6 }),
                         tracklib::schema::FieldDefinition::new("y", tracklib::schema::DataType::F64 { scale: 6 }),
                         tracklib::schema::FieldDefinition::new("e", tracklib::schema::DataType::F64 { scale: 1 }),
-                        tracklib::schema::FieldDefinition::new("S", tracklib::schema::DataType::I64),
-                        tracklib::schema::FieldDefinition::new("R", tracklib::schema::DataType::I64),
+                        tracklib::schema::FieldDefinition::new("S", tracklib::schema::DataType::U64),
+                        tracklib::schema::FieldDefinition::new("R", tracklib::schema::DataType::U64),
                     ]);
 
                     match section {
@@ -92,7 +93,8 @@ methods!(
         index: Integer,
         mapping: RubySurfaceMapping,
         tolerance: Float,
-        key_material: RString) -> Array {
+        key_material: RString,
+    ) -> Array {
         let ruby_track_reader = track_reader.map_err(VM::raise_ex).unwrap();
 
         let rust_tolerance = tolerance.map_err(VM::raise_ex).unwrap().to_f64();
@@ -113,8 +115,8 @@ methods!(
                         tracklib::schema::FieldDefinition::new("x", tracklib::schema::DataType::F64 { scale: 6 }),
                         tracklib::schema::FieldDefinition::new("y", tracklib::schema::DataType::F64 { scale: 6 }),
                         tracklib::schema::FieldDefinition::new("e", tracklib::schema::DataType::F64 { scale: 1 }),
-                        tracklib::schema::FieldDefinition::new("S", tracklib::schema::DataType::I64),
-                        tracklib::schema::FieldDefinition::new("R", tracklib::schema::DataType::I64),
+                        tracklib::schema::FieldDefinition::new("S", tracklib::schema::DataType::U64),
+                        tracklib::schema::FieldDefinition::new("R", tracklib::schema::DataType::U64),
                     ]);
 
                     match section {
@@ -169,7 +171,8 @@ methods!(
         column_name: RString,
         mapping: RubySurfaceMapping,
         tolerance: Float,
-        key_material: RString) -> AnyObject {
+        key_material: RString,
+    ) -> AnyObject {
         let ruby_track_reader = track_reader.map_err(VM::raise_ex).unwrap();
 
         let rust_tolerance = tolerance.map_err(VM::raise_ex).unwrap().to_f64();
@@ -202,8 +205,8 @@ methods!(
                             tracklib::schema::FieldDefinition::new("x", tracklib::schema::DataType::F64 { scale: 6 }),
                             tracklib::schema::FieldDefinition::new("y", tracklib::schema::DataType::F64 { scale: 6 }),
                             tracklib::schema::FieldDefinition::new("e", tracklib::schema::DataType::F64 { scale: 1 }),
-                            tracklib::schema::FieldDefinition::new("S", tracklib::schema::DataType::I64),
-                            tracklib::schema::FieldDefinition::new("R", tracklib::schema::DataType::I64),
+                            tracklib::schema::FieldDefinition::new("S", tracklib::schema::DataType::U64),
+                            tracklib::schema::FieldDefinition::new("R", tracklib::schema::DataType::U64),
                         ]);
 
                         match section {
