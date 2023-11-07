@@ -1,5 +1,5 @@
 use super::rust::simplify_points;
-use crate::geometry::reader_to_points;
+use crate::geometry::{reader_to_points, IrrelevantPointsBehavior};
 use crate::polyline::ruby::PolylineOptions;
 use crate::polyline::rust::polyline_encode;
 use crate::surface::ruby::RubySurfaceMapping;
@@ -53,7 +53,7 @@ methods!(
                                 .reader_for_schema(&schema)
                                 .map_err(|e| VM::raise(Class::from_existing("Exception"), &format!("{}", e)))
                                 .unwrap();
-                            let points = reader_to_points(section_reader);
+                            let points = reader_to_points(section_reader, IrrelevantPointsBehavior::Ignore);
                             let simplified_indexes = simplify_points(&points, &rust_mapping, rust_tolerance);
                             let simplified_points = simplified_indexes
                                 .into_iter()
@@ -71,7 +71,7 @@ methods!(
                                 .reader_for_schema(rust_key_material, &schema)
                                 .map_err(|e| VM::raise(Class::from_existing("Exception"), &format!("{}", e)))
                                 .unwrap();
-                            let points = reader_to_points(section_reader);
+                            let points = reader_to_points(section_reader, IrrelevantPointsBehavior::Ignore);
                             let simplified_indexes = simplify_points(&points, &rust_mapping, rust_tolerance);
                             let simplified_points = simplified_indexes
                                 .into_iter()
@@ -123,7 +123,8 @@ methods!(
                                 .reader_for_schema(&schema)
                                 .map_err(|e| VM::raise(Class::from_existing("Exception"), &format!("{}", e)))
                                 .unwrap();
-                            let points = reader_to_points(section_reader_for_simplification);
+                            let points =
+                                reader_to_points(section_reader_for_simplification, IrrelevantPointsBehavior::Count);
                             let simplified_indexes = simplify_points(&points, &rust_mapping, rust_tolerance);
 
                             let section_reader_for_serialization = section
@@ -144,7 +145,8 @@ methods!(
                                 .reader_for_schema(rust_key_material, &schema)
                                 .map_err(|e| VM::raise(Class::from_existing("Exception"), &format!("{}", e)))
                                 .unwrap();
-                            let points = reader_to_points(section_reader_for_simplification);
+                            let points =
+                                reader_to_points(section_reader_for_simplification, IrrelevantPointsBehavior::Count);
                             let simplified_indexes = simplify_points(&points, &rust_mapping, rust_tolerance);
 
                             let section_reader_for_serialization = section
@@ -212,7 +214,10 @@ methods!(
                                     .reader_for_schema(&schema_for_simplification)
                                     .map_err(|e| VM::raise(Class::from_existing("Exception"), &format!("{}", e)))
                                     .unwrap();
-                                let points = reader_to_points(section_reader_for_simplification);
+                                let points = reader_to_points(
+                                    section_reader_for_simplification,
+                                    IrrelevantPointsBehavior::Count,
+                                );
                                 let simplified_indexes = simplify_points(&points, &rust_mapping, rust_tolerance);
 
                                 let section_reader_for_serialization = section
@@ -233,7 +238,10 @@ methods!(
                                     .reader_for_schema(rust_key_material, &schema)
                                     .map_err(|e| VM::raise(Class::from_existing("Exception"), &format!("{}", e)))
                                     .unwrap();
-                                let points = reader_to_points(section_reader_for_simplification);
+                                let points = reader_to_points(
+                                    section_reader_for_simplification,
+                                    IrrelevantPointsBehavior::Count,
+                                );
                                 let simplified_indexes = simplify_points(&points, &rust_mapping, rust_tolerance);
 
                                 let section_reader_for_serialization = section
@@ -279,6 +287,8 @@ fn reader_with_indexes_to_array_of_hashes(
                 }
             }
             data_array.push(row_hash);
+        } else {
+            columniter.for_each(drop); // fully consume (and ignore) this row
         }
         i += 1;
     }
@@ -308,6 +318,8 @@ fn reader_with_indexes_to_single_column_array(
             };
 
             data_array.push(ruby_value);
+        } else {
+            columniter.for_each(drop); // fully consume (and ignore) this row
         }
         i += 1;
     }

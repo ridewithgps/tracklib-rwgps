@@ -208,7 +208,16 @@ where
     }
 }
 
-pub(crate) fn reader_to_points(mut reader: tracklib::read::section::reader::SectionReader) -> Vec<Point> {
+#[derive(PartialEq)]
+pub(crate) enum IrrelevantPointsBehavior {
+    Count,
+    Ignore,
+}
+
+pub(crate) fn reader_to_points(
+    mut reader: tracklib::read::section::reader::SectionReader,
+    irrelevant_points_behavior: IrrelevantPointsBehavior,
+) -> Vec<Point> {
     let mut index = 0;
     let mut points = Vec::with_capacity(reader.rows_remaining());
     while let Some(columniter) = reader.open_column_iter() {
@@ -222,6 +231,10 @@ pub(crate) fn reader_to_points(mut reader: tracklib::read::section::reader::Sect
         ) {
             points.push(point);
             index += 1;
+        } else {
+            if irrelevant_points_behavior == IrrelevantPointsBehavior::Count {
+                index += 1;
+            }
         }
     }
 
