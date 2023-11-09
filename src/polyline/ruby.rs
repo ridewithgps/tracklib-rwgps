@@ -1,5 +1,5 @@
 use super::rust::{polyline_encode, PointField, PolylineOption};
-use crate::geometry::reader_to_points;
+use crate::geometry::{reader_to_points, IrrelevantPointsBehavior};
 use rutie::{
     class, methods, module, wrappable_struct, AnyObject, Array, Class, Integer, Module, Object, RString,
     VerifiedObject, VM,
@@ -185,7 +185,7 @@ methods!(
                                 .reader_for_schema(&schema)
                                 .map_err(|e| VM::raise(Class::from_existing("Exception"), &format!("{}", e)))
                                 .unwrap();
-                            let points = reader_to_points(section_reader);
+                            let points = reader_to_points(section_reader, IrrelevantPointsBehavior::Ignore);
 
                             RString::from(polyline_encode(&points, rust_polyline_opts))
                         }
@@ -197,7 +197,7 @@ methods!(
                                 .reader_for_schema(rust_key_material, &schema)
                                 .map_err(|e| VM::raise(Class::from_existing("Exception"), &format!("{}", e)))
                                 .unwrap();
-                            let points = reader_to_points(section_reader);
+                            let points = reader_to_points(section_reader, IrrelevantPointsBehavior::Ignore);
 
                             RString::from(polyline_encode(&points, rust_polyline_opts))
                         }
